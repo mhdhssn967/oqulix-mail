@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post("/send-email", async (req, res) => {
-  const { email, name, phone, place, message, type } = req.body;
+  const { name, orgName, contact, place, message, type } = req.body;
 
   let subject, text;
 
@@ -26,8 +26,8 @@ app.post("/send-email", async (req, res) => {
       A new distributor enquiry has been submitted:
 
       Name: ${name}
-      Email: ${email}
-      Phone: ${phone}
+      Organization: ${orgName}
+      Contact: ${contact}
       Region/Place: ${place}
       Message: ${message || "N/A"}
     `;
