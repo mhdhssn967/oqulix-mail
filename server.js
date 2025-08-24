@@ -1,47 +1,27 @@
-const express = require("express");
-const nodemailer = require("nodemailer");
-const cors = require("cors");
+const express = require("express")
+const nodemailer = require("nodemailer")
+const cors = require("cors")
 
-const app = express();
+const app=express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json())
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "huzeinprince@gmail.com", // your company email
-    pass: "anjy bslc ukql pcvd",    // Gmail app password
+    pass: "anjy bslc ukql pcvd",     // app password from Gmail (NOT your normal password)
   },
 });
 
 app.post("/send-email", async (req, res) => {
-  const { name, orgName, contact, place, message, type } = req.body;
-
-  let subject, text;
-
-  if (type === "distributor") {
-    // Distributor enquiry
-    subject = "New Distributor Enquiry - Happy Moves";
-    text = `
-      A new distributor enquiry has been submitted:
-
-      Name: ${name}
-      Organization: ${orgName}
-      Contact: ${contact}
-      Region/Place: ${place}
-      Message: ${message || "N/A"}
-    `;
-  } else {
-    // Simple email capture
-    subject = "New Email Submission";
-    text = `A new user submitted their email: ${email}`;
-  }
+  const { email } = req.body;
 
   const mailOptions = {
     from: "huzeinprince@gmail.com",
-    to: "huzeinprince@gmail.com", // your inbox
-    subject,
-    text,
+    to: "huzeinprince@gmail.com",
+    subject: "New Email Submission",
+    text: `A new user submitted their email: ${email}`,
   };
 
   try {
